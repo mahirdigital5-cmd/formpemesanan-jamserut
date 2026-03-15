@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Form Pemesanan Jam Serut</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+display:flex;
+justify-content:center;
+align-items:flex-start;
+min-height:100vh;
+margin:0;
+padding:30px 15px;
+}
+
+.box{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+width:100%;
+max-width:450px;
+}
+
+.title{
+font-size:22px;
+font-weight:bold;
+text-align:center;
+margin-bottom:20px;
+color:#222;
+}
+
+.section{
+margin-top:20px;
+}
+
+.section-title{
+font-weight:bold;
+margin-bottom:10px;
+color:#222;
+}
+
+.product{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border:1px solid #eee;
+padding:10px;
+border-radius:8px;
+margin-bottom:8px;
+}
+
+.product input{
+width:70px;
+padding:8px;
+border-radius:6px;
+border:1px solid #ccc;
+text-align:center;
+}
+
+input, select, textarea{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:14px;
+box-sizing:border-box;
+}
+
+textarea{
+min-height:80px;
+resize:none;
+}
+
+button{
+margin-top:20px;
+width:100%;
+padding:14px;
+background:#25D366;
+border:none;
+color:white;
+font-weight:bold;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<div class="title">
+Form Pemesanan Jam Serut
+</div>
+
+<form id="formPesanan">
+
+<div class="section">
+
+<div class="section-title">
+Produk yang dipesan
+</div>
+
+<div class="product">
+<span>Jam Serut Gold</span>
+<input type="number" id="gold" value="0" min="0">
+</div>
+
+<div class="product">
+<span>Jam Serut Silver</span>
+<input type="number" id="silver" value="0" min="0">
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="section-title">
+Lengkapi alamat pengiriman
+</div>
+
+<select id="pembayaran">
+<option value="">Metode Pembayaran</option>
+<option value="Cash on Delivery">Cash on Delivery (COD)</option>
+<option value="Transfer Bank">Transfer Bank</option>
+</select>
+
+<input type="text" id="nama" placeholder="Nama Penerima">
+
+<input type="text" id="jalan" placeholder="Nama Jalan (contoh: JL.Anggrek)">
+
+<input type="number" id="rt" placeholder="RT (hanya angka)">
+
+<input type="number" id="rumah" placeholder="No Rumah (hanya angka)">
+
+<input type="text" id="kelurahan" placeholder="Kelurahan / Desa">
+
+<input type="text" id="kecamatan" placeholder="Kecamatan">
+
+<input type="text" id="kota" placeholder="Kota / Kabupaten">
+
+<input type="text" id="provinsi" placeholder="Provinsi">
+
+<textarea id="catatan" placeholder="Catatan Rumah / Patokan"></textarea>
+
+</div>
+
+<button type="submit">Kirim Pesanan</button>
+
+</form>
+
+</div>
+
+<script>
+
+document.getElementById("formPesanan").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+var gold=parseInt(document.getElementById("gold").value) || 0;
+var silver=parseInt(document.getElementById("silver").value) || 0;
+
+/* CEK PRODUK */
+
+if(gold==0 && silver==0){
+alert("Silakan pilih jumlah jam yang ingin dipesan 😊");
+document.getElementById("gold").focus();
+return;
+}
+
+/* CEK PEMBAYARAN */
+
+var pembayaran=document.getElementById("pembayaran").value;
+
+if(pembayaran==""){
+alert("Silakan pilih metode pembayaran dulu 😊");
+document.getElementById("pembayaran").focus();
+return;
+}
+
+/* CEK ALAMAT */
+
+var nama=document.getElementById("nama").value;
+var jalan=document.getElementById("jalan").value;
+var rt=document.getElementById("rt").value;
+var rumah=document.getElementById("rumah").value;
+var kel=document.getElementById("kelurahan").value;
+var kec=document.getElementById("kecamatan").value;
+var kota=document.getElementById("kota").value;
+var prov=document.getElementById("provinsi").value;
+var catatan=document.getElementById("catatan").value;
+
+if(nama==""){
+alert("Mohon isi nama penerima 😊");
+document.getElementById("nama").focus();
+return;
+}
+
+if(jalan==""){
+alert("Mohon isi nama jalan 😊");
+document.getElementById("jalan").focus();
+return;
+}
+
+if(rt==""){
+alert("Mohon isi RT 😊");
+document.getElementById("rt").focus();
+return;
+}
+
+if(rumah==""){
+alert("Mohon isi nomor rumah 😊");
+document.getElementById("rumah").focus();
+return;
+}
+
+if(kel==""){
+alert("Mohon isi kelurahan 😊");
+document.getElementById("kelurahan").focus();
+return;
+}
+
+if(kec==""){
+alert("Mohon isi kecamatan 😊");
+document.getElementById("kecamatan").focus();
+return;
+}
+
+if(kota==""){
+alert("Mohon isi kota atau kabupaten 😊");
+document.getElementById("kota").focus();
+return;
+}
+
+if(prov==""){
+alert("Mohon isi provinsi 😊");
+document.getElementById("provinsi").focus();
+return;
+}
+
+if(catatan==""){
+alert("Mohon isi catatan rumah / patokan 😊");
+document.getElementById("catatan").focus();
+return;
+}
+
+/* PROSES KIRIM */
+
+var harga=87000;
+
+var alamat=jalan+" RT."+rt+" No."+rumah;
+
+var detail="";
+
+if(gold>0){
+detail+="* Jam Serut Gold × "+gold+"%0A";
+}
+
+if(silver>0){
+detail+="* Jam Serut Silver × "+silver+"%0A";
+}
+
+var totalBarang=gold+silver;
+var totalHarga=totalBarang*harga;
+
+var formatHarga=totalHarga.toLocaleString("id-ID");
+
+var pesan=
+"Halo kak, saya ingin melakukan pemesanan.%0A%0A"+
+
+"*Nama Lengkap:*%0A"+nama+"%0A%0A"+
+
+"*Alamat Pengiriman:*%0A"+
+alamat+"%0A"+
+"("+catatan+")%0A"+
+"Kelurahan: "+kel+"%0A"+
+"Kecamatan: "+kec+"%0A"+
+"Kota: "+kota+"%0A"+
+"Provinsi: "+prov+"%0A%0A"+
+
+"*Detail Pesanan:*%0A%0A"+
+detail+"%0A"+
+
+"*Metode Pembayaran:* "+pembayaran+"%0A"+
+"Ongkos Kirim: _*Rp0*_%0A"+
+"*Total Harga:* Rp"+formatHarga+"%0A%0A"+
+
+"Mohon segera diproses ya. Terima kasih 🙏";
+
+var url="https://api.whatsapp.com/send?phone=15558770694&text="+pesan;
+
+window.location.href=url;
+
+});
+
+</script>
+
+</body>
+</html>
